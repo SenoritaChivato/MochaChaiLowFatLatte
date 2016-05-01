@@ -1,0 +1,17 @@
+{
+  "name": "javascriptproject",
+  "version": "1.0.0",
+  "description": "json file",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./JSLnL.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "chromedriver": "^2.21.2",
+    "mocha": "^2.4.5",
+    "selenium-webdriver": "^2.53.1"
+  }
+}
