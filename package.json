@@ -4,7 +4,7 @@
   "description": "json file",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./JSLnL.js"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
@@ -13,5 +13,10 @@
     "chromedriver": "^2.21.2",
     "mocha": "^2.4.5",
     "selenium-webdriver": "^2.53.1"
+  },
+  "devDependencies": {
+    "assert": "^1.3.0",
+    "expect": "^1.18.0",
+    "should": "^8.3.1"
   }
 }

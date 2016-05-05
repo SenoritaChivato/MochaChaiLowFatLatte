@@ -1,53 +1,50 @@
-// Dependencies
-var webdriver = require('selenium-webdriver');
-var By = webdriver.By;
-var until = webdriver.until;
-var expect = require('chai').expect;
-var assert = require('chai').assert;
 
-describe('asynchrony.com', function() {
-  var driver;
+  'use strict';
 
-  before(function(done) {
-    this.timeout(50000);
-    driver = new webdriver.Builder()
-      .forBrowser('chrome')
-      .build();
-    driver.get('http://localhost/contracts').then(done);
-  });
+  var WebDriver = require('selenium-webdriver');
+  var driver = new WebDriver.Builder().withCapabilities(
+      WebDriver.Capabilities.chrome()
+  ).build();
+
+  var By = WebDriver.By;
+  var until = WebDriver.until;
+  var expect = require('chai').expect;
+  var should = require('chai').should;
+
+  describe('asynchrony.com', function() {
+    before(function(done) {
+      this.timeout(30000);
+      driver.get('http://www.asynchrony.com').then(done);
+    });
 
   describe('Check homepage', function() {
-    it('should see the correct title', function(done) {
-      driver.getTitle().then(function(title) {
-        expect(title).to.have.string('Contract Tool');
-        done();
-      });
-    });
-  });
-
-
-  describe('create new contract', function() {
-    it('should not have new contract modal open when page loads', function(done) {
-      driver.findElement(By.id('newContractTemplate')).then(function(newContract){
-        assert.isOk(newContract);
-        done();
-      });
-    });
-
-    it('should open new contract modal', function(done){
-      driver.findElement(By.id('new-contract')).click().then(function(newContract){
-        driver.findElement(By.id('newContractTemplate')).then(function(newContract){
-          assert.isOk(newContract);
+      it('should see the correct title', function(done) {
+        driver.getTitle().then(function(title) {
+          expect(title).to.have.contain('Asynchrony Labs');
           done();
         });
       });
     });
-  });
+
+    describe('Check for correct number of menu bar items', function(){
+      it('should return correct number of menu bar items', function(done){
+        driver.findElements(By.css('div#primary-nav ul#primary-menu  li.menu-item-type-post_type')).then(function(menuItems){
+          expect(menuItems.length).is.equal(6);
+          done();
+        });
+      });
 
 
+      it('should return at least min number of menu items', function(done){
+        driver.findElements(By.css('div#primary-nav ul#primary-menu > li.menu-item')).then(function(menuItems){
+          expect(menuItems.length).is.above(6);
+          done();
+        });
+      });
+    });
 
-  after(function(done) {
+    after(function(done) {
     driver.quit();
     done();
   });
-});
+  });
